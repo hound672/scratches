@@ -1,0 +1,114 @@
+# asdfaasdf [asdfaasdf.test]
+./gourutines.go:12:6: can inline smth with cost 61 as: func() { for loop }
+./gourutines.go:18:6: cannot inline cont: function too complex: cost 133 exceeds budget 80
+./gourutines.go:19:50: inlining call to context.Background
+./gourutines.go:25:6: cannot inline main: unhandled op GO
+./gourutines.go:31:25: inlining call to http.ListenAndServe
+./habr_heap.go:16:6: cannot inline createUserV1: marked go:noinline
+./habr_heap.go:27:6: cannot inline createUserV2: marked go:noinline
+./stack.go:20:6: can inline f1 with cost 10 as: func() *Obj { obj := Obj{...}; return &obj }
+./stack.go:12:6: can inline f2 with cost 22 as: func() *Obj { obj := f1(); _ = *obj; return nil }
+./stack.go:13:11: inlining call to f1
+./stack.go:7:6: can inline f3 with cost 31 as: func() { obj := f2(); _ = obj }
+./stack.go:8:11: inlining call to f2
+./stack.go:8:11: inlining call to f1
+./heap_test.go:16:6: can inline Factory with cost 9 as: func(int) *User { return &User{...} }
+./heap_test.go:20:6: can inline ServiceValue with cost 43 as: func() []User { users := make([]User, 0, usersCount); for loop; return users }
+./heap_test.go:23:18: inlining call to Factory
+./heap_test.go:30:6: can inline ServicePointer with cost 42 as: func() []*User { users := make([]*User, 0, usersCount); for loop; return users }
+./heap_test.go:33:18: inlining call to Factory
+./heap_test.go:40:6: can inline BenchmarkUsersValues with cost 65 as: func(*testing.B) { for loop }
+./heap_test.go:42:24: inlining call to ServiceValue
+./heap_test.go:42:24: inlining call to Factory
+./heap_test.go:47:6: can inline BenchmarkUsersPointers with cost 64 as: func(*testing.B) { for loop }
+./heap_test.go:49:26: inlining call to ServicePointer
+./heap_test.go:49:26: inlining call to Factory
+./heap_test.go:54:6: can inline modify with cost 6 as: func(*User) *User { u.Email = ""; return u }
+./heap_test.go:59:6: can inline BenchmarkModify with cost 30 as: func(*testing.B) { for loop }
+./heap_test.go:62:16: inlining call to modify
+./gourutines.go:31:25: &http.Server{...} escapes to heap:
+./gourutines.go:31:25:   flow: http.server = &{storage for &http.Server{...}}:
+./gourutines.go:31:25:     from &http.Server{...} (spill) at ./gourutines.go:31:25
+./gourutines.go:31:25:     from http.server := &http.Server{...} (assign) at ./gourutines.go:31:25
+./gourutines.go:31:25:   flow: {heap} = http.server:
+./gourutines.go:31:25:     from (*http.Server).ListenAndServe(http.server) (call parameter) at ./gourutines.go:31:25
+./gourutines.go:31:25: &http.Server{...} escapes to heap
+./habr_heap.go:28:2: u escapes to heap:
+./habr_heap.go:28:2:   flow: ~r0 = &u:
+./habr_heap.go:28:2:     from &u (address-of) at ./habr_heap.go:34:9
+./habr_heap.go:28:2:     from return &u (return) at ./habr_heap.go:34:2
+./habr_heap.go:28:2: moved to heap: u
+./stack.go:21:2: obj escapes to heap:
+./stack.go:21:2:   flow: ~r0 = &obj:
+./stack.go:21:2:     from &obj (address-of) at ./stack.go:22:9
+./stack.go:21:2:     from return &obj (return) at ./stack.go:22:2
+./stack.go:21:2: moved to heap: obj
+./heap_test.go:17:9: &User{...} escapes to heap:
+./heap_test.go:17:9:   flow: ~r0 = &{storage for &User{...}}:
+./heap_test.go:17:9:     from &User{...} (spill) at ./heap_test.go:17:9
+./heap_test.go:17:9:     from return &User{...} (return) at ./heap_test.go:17:2
+./heap_test.go:17:9: &User{...} escapes to heap
+./heap_test.go:21:15: make([]User, 0, usersCount) escapes to heap:
+./heap_test.go:21:15:   flow: users = &{storage for make([]User, 0, usersCount)}:
+./heap_test.go:21:15:     from make([]User, 0, usersCount) (spill) at ./heap_test.go:21:15
+./heap_test.go:21:15:     from users := make([]User, 0, usersCount) (assign) at ./heap_test.go:21:8
+./heap_test.go:21:15:   flow: ~r0 = users:
+./heap_test.go:21:15:     from return users (return) at ./heap_test.go:27:2
+./heap_test.go:21:15: make([]User, 0, usersCount) escapes to heap
+./heap_test.go:23:18: &User{...} does not escape
+./heap_test.go:33:18: &User{...} escapes to heap:
+./heap_test.go:33:18:   flow: ~R0 = &{storage for &User{...}}:
+./heap_test.go:33:18:     from &User{...} (spill) at ./heap_test.go:33:18
+./heap_test.go:33:18:     from ~R0 = &User{...} (assign-pair) at ./heap_test.go:33:18
+./heap_test.go:33:18:   flow: user = ~R0:
+./heap_test.go:33:18:     from user := ~R0 (assign) at ./heap_test.go:33:8
+./heap_test.go:33:18:   flow: {heap} = user:
+./heap_test.go:33:18:     from append(users, user) (call parameter) at ./heap_test.go:34:17
+./heap_test.go:31:15: make([]*User, 0, usersCount) escapes to heap:
+./heap_test.go:31:15:   flow: users = &{storage for make([]*User, 0, usersCount)}:
+./heap_test.go:31:15:     from make([]*User, 0, usersCount) (spill) at ./heap_test.go:31:15
+./heap_test.go:31:15:     from users := make([]*User, 0, usersCount) (assign) at ./heap_test.go:31:8
+./heap_test.go:31:15:   flow: ~r0 = users:
+./heap_test.go:31:15:     from return users (return) at ./heap_test.go:37:2
+./heap_test.go:31:15: make([]*User, 0, usersCount) escapes to heap
+./heap_test.go:33:18: &User{...} escapes to heap
+./heap_test.go:40:27: b does not escape
+./heap_test.go:42:24: make([]User, 0, usersCount) does not escape
+./heap_test.go:42:24: &User{...} does not escape
+./heap_test.go:49:26: &User{...} escapes to heap:
+./heap_test.go:49:26:   flow: ~R0 = &{storage for &User{...}}:
+./heap_test.go:49:26:     from &User{...} (spill) at ./heap_test.go:49:26
+./heap_test.go:49:26:     from ~R0 = &User{...} (assign-pair) at ./heap_test.go:49:26
+./heap_test.go:49:26:   flow: user = ~R0:
+./heap_test.go:49:26:     from user := ~R0 (assign) at ./heap_test.go:49:26
+./heap_test.go:49:26:   flow: {heap} = user:
+./heap_test.go:49:26:     from append(users, user) (call parameter) at ./heap_test.go:49:26
+./heap_test.go:47:29: b does not escape
+./heap_test.go:49:26: make([]*User, 0, usersCount) does not escape
+./heap_test.go:49:26: &User{...} escapes to heap
+./heap_test.go:54:13: parameter u leaks to ~r0 with derefs=0:
+./heap_test.go:54:13:   flow: ~r0 = u:
+./heap_test.go:54:13:     from return u (return) at ./heap_test.go:56:2
+./heap_test.go:54:13: leaking param: u to result ~r0 level=0
+./heap_test.go:59:22: b does not escape
+./heap_test.go:61:11: &User{} does not escape
+# asdfaasdf.test
+_testmain.go:41:6: can inline init.0 with cost 3 as: func() { testdeps.ImportPath = "asdfaasdf" }
+_testmain.go:47:6: cannot inline main: function too complex: cost 203 exceeds budget 80
+_testmain.go:49:24: inlining call to testing.MainStart
+_testmain.go:49:24: &testing.M{...} escapes to heap:
+_testmain.go:49:24:   flow: ~R0 = &{storage for &testing.M{...}}:
+_testmain.go:49:24:     from &testing.M{...} (spill) at _testmain.go:49:24
+_testmain.go:49:24:     from ~R0 = &testing.M{...} (assign-pair) at _testmain.go:49:24
+_testmain.go:49:24:   flow: m = ~R0:
+_testmain.go:49:24:     from m := ~R0 (assign) at _testmain.go:49:4
+_testmain.go:49:24:   flow: {heap} = m:
+_testmain.go:49:24:     from (*testing.M).Run(m) (call parameter) at _testmain.go:51:15
+_testmain.go:49:42: testdeps.TestDeps{} escapes to heap:
+_testmain.go:49:42:   flow: testing.deps = &{storage for testdeps.TestDeps{}}:
+_testmain.go:49:42:     from testdeps.TestDeps{} (spill) at _testmain.go:49:42
+_testmain.go:49:42:     from testing.deps, testing.tests, testing.benchmarks, testing.fuzzTargets, testing.examples := testdeps.TestDeps{}, tests, benchmarks, fuzzTargets, examples (assign-pair) at _testmain.go:49:24
+_testmain.go:49:42:   flow: {storage for &testing.M{...}} = testing.deps:
+_testmain.go:49:42:     from testing.M{...} (struct literal element) at _testmain.go:49:24
+_testmain.go:49:42: testdeps.TestDeps{} escapes to heap
+_testmain.go:49:24: &testing.M{...} escapes to heap

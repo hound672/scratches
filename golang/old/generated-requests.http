@@ -1,0 +1,17 @@
+###
+GRPC localhost:50000/ptbb.integration.grpc.api.v1.Tester/SendMsg
+
+###
+GRPC localhost:50000/ptbb.integration.grpc.api.v1.Tester/SendMsg
+
+###
+GRPC localhost:8080/ptbb.integration.grpc.api.v1.TesterSast/SendMsg
+
+###
+GRPC localhost:8080/ptbb_integration_grpc_api.api.v1.Tester/SendMsg
+
+###
+GRPC localhost:8080/ptbb_integration_grpc_api.api.v1.DAST/StartScan
+
+###
+GRPC localhost:8080/ptbb_integration_grpc_api.api.v1.DAST/StartScan

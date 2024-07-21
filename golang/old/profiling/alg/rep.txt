@@ -1,0 +1,161 @@
+# command-line-arguments
+./alg.go:40:6: can inline assembleInputStream with cost 18 as: func() []byte { in = <nil>; for loop; return in }
+./alg.go:50:6: can inline assembleOutputStream with cost 18 as: func() []byte { out = <nil>; for loop; return out }
+./alg.go:80:6: cannot inline algOne: function too complex: cost 676 exceeds budget 80
+./alg.go:83:26: inlining call to bytes.NewBuffer
+./alg.go:93:25: inlining call to bytes.(*Buffer).Read
+./alg.go:101:26: inlining call to bytes.(*Buffer).Read
+./alg.go:109:19: inlining call to bytes.Compare
+./alg.go:113:27: inlining call to bytes.(*Buffer).Read
+./alg.go:93:25: inlining call to bytes.(*Buffer).empty
+./alg.go:93:25: inlining call to bytes.(*Buffer).Reset
+./alg.go:101:26: inlining call to bytes.(*Buffer).empty
+./alg.go:101:26: inlining call to bytes.(*Buffer).Reset
+./alg.go:113:27: inlining call to bytes.(*Buffer).empty
+./alg.go:113:27: inlining call to bytes.(*Buffer).Reset
+./alg.go:131:6: cannot inline algTwo: function too complex: cost 314 exceeds budget 80
+./alg.go:134:26: inlining call to bytes.NewReader
+./alg.go:145:27: inlining call to bytes.(*Reader).ReadByte
+./alg.go:173:20: inlining call to bytes.(*Reader).UnreadByte
+./alg.go:173:20: inlining call to errors.New
+./alg.go:58:6: cannot inline main: function too complex: cost 728 exceeds budget 80
+./alg.go:60:27: inlining call to assembleInputStream
+./alg.go:61:29: inlining call to assembleOutputStream
+./alg.go:66:13: inlining call to fmt.Println
+./alg.go:67:14: inlining call to bytes.(*Buffer).Reset
+./alg.go:69:44: inlining call to bytes.(*Buffer).Bytes
+./alg.go:69:26: inlining call to bytes.Compare
+./alg.go:70:98: inlining call to bytes.(*Buffer).Bytes
+./alg.go:70:12: inlining call to fmt.Printf
+./alg.go:72:13: inlining call to fmt.Println
+./alg.go:73:14: inlining call to bytes.(*Buffer).Reset
+./alg.go:75:43: inlining call to bytes.(*Buffer).Bytes
+./alg.go:75:25: inlining call to bytes.Compare
+./alg.go:76:98: inlining call to bytes.(*Buffer).Bytes
+./alg.go:76:12: inlining call to fmt.Printf
+./alg.go:93:25: algOne ignoring self-assignment in bytes.b.buf = bytes.b.buf[:0]
+./alg.go:101:26: algOne ignoring self-assignment in bytes.b.buf = bytes.b.buf[:0]
+./alg.go:113:27: algOne ignoring self-assignment in bytes.b.buf = bytes.b.buf[:0]
+./alg.go:89:13: make([]byte, size) escapes to heap:
+./alg.go:89:13:   flow: {heap} = &{storage for make([]byte, size)}:
+./alg.go:89:13:     from make([]byte, size) (non-constant size) at ./alg.go:89:13
+./alg.go:80:13: data does not escape
+./alg.go:80:26: find does not escape
+./alg.go:80:39: repl does not escape
+./alg.go:80:52: output does not escape
+./alg.go:83:26: &bytes.Buffer{...} does not escape
+./alg.go:89:13: make([]byte, size) escapes to heap
+./alg.go:131:13: data does not escape
+./alg.go:131:26: find does not escape
+./alg.go:131:39: repl does not escape
+./alg.go:131:52: output does not escape
+./alg.go:134:26: &bytes.Reader{...} does not escape
+./alg.go:173:20: &errors.errorString{...} does not escape
+./alg.go:67:14: main ignoring self-assignment in bytes.b.buf = bytes.b.buf[:0]
+./alg.go:73:14: main ignoring self-assignment in bytes.b.buf = bytes.b.buf[:0]
+./alg.go:76:98: ~R0 escapes to heap:
+./alg.go:76:98:   flow: {storage for ... argument} = &{storage for ~R0}:
+./alg.go:76:98:     from ~R0 (spill) at ./alg.go:76:98
+./alg.go:76:98:     from ... argument (slice-literal-element) at ./alg.go:76:12
+./alg.go:76:98:   flow: fmt.a = &{storage for ... argument}:
+./alg.go:76:98:     from ... argument (spill) at ./alg.go:76:12
+./alg.go:76:98:     from fmt.format, fmt.a := "Matched: %v\nInp: [%s]\nExp: [%s]\nGot: [%s]\n", ... argument (assign-pair) at ./alg.go:76:12
+./alg.go:76:98:   flow: {heap} = *fmt.a:
+./alg.go:76:98:     from fmt.Fprintf(os.Stdout, fmt.format, fmt.a...) (call parameter) at ./alg.go:76:12
+./alg.go:76:81: out escapes to heap:
+./alg.go:76:81:   flow: {storage for ... argument} = &{storage for out}:
+./alg.go:76:81:     from out (spill) at ./alg.go:76:81
+./alg.go:76:81:     from ... argument (slice-literal-element) at ./alg.go:76:12
+./alg.go:76:81:   flow: fmt.a = &{storage for ... argument}:
+./alg.go:76:81:     from ... argument (spill) at ./alg.go:76:12
+./alg.go:76:81:     from fmt.format, fmt.a := "Matched: %v\nInp: [%s]\nExp: [%s]\nGot: [%s]\n", ... argument (assign-pair) at ./alg.go:76:12
+./alg.go:76:81:   flow: {heap} = *fmt.a:
+./alg.go:76:81:     from fmt.Fprintf(os.Stdout, fmt.format, fmt.a...) (call parameter) at ./alg.go:76:12
+./alg.go:76:77: in escapes to heap:
+./alg.go:76:77:   flow: {storage for ... argument} = &{storage for in}:
+./alg.go:76:77:     from in (spill) at ./alg.go:76:77
+./alg.go:76:77:     from ... argument (slice-literal-element) at ./alg.go:76:12
+./alg.go:76:77:   flow: fmt.a = &{storage for ... argument}:
+./alg.go:76:77:     from ... argument (spill) at ./alg.go:76:12
+./alg.go:76:77:     from fmt.format, fmt.a := "Matched: %v\nInp: [%s]\nExp: [%s]\nGot: [%s]\n", ... argument (assign-pair) at ./alg.go:76:12
+./alg.go:76:77:   flow: {heap} = *fmt.a:
+./alg.go:76:77:     from fmt.Fprintf(os.Stdout, fmt.format, fmt.a...) (call parameter) at ./alg.go:76:12
+./alg.go:76:71: matched == 0 escapes to heap:
+./alg.go:76:71:   flow: {storage for ... argument} = &{storage for matched == 0}:
+./alg.go:76:71:     from matched == 0 (spill) at ./alg.go:76:71
+./alg.go:76:71:     from ... argument (slice-literal-element) at ./alg.go:76:12
+./alg.go:76:71:   flow: fmt.a = &{storage for ... argument}:
+./alg.go:76:71:     from ... argument (spill) at ./alg.go:76:12
+./alg.go:76:71:     from fmt.format, fmt.a := "Matched: %v\nInp: [%s]\nExp: [%s]\nGot: [%s]\n", ... argument (assign-pair) at ./alg.go:76:12
+./alg.go:76:71:   flow: {heap} = *fmt.a:
+./alg.go:76:71:     from fmt.Fprintf(os.Stdout, fmt.format, fmt.a...) (call parameter) at ./alg.go:76:12
+./alg.go:72:14: "=======================================\nRunning Algorithm Two" escapes to heap:
+./alg.go:72:14:   flow: {storage for ... argument} = &{storage for "=======================================\nRunning Algorithm Two"}:
+./alg.go:72:14:     from "=======================================\nRunning Algorithm Two" (spill) at ./alg.go:72:14
+./alg.go:72:14:     from ... argument (slice-literal-element) at ./alg.go:72:13
+./alg.go:72:14:   flow: fmt.a = &{storage for ... argument}:
+./alg.go:72:14:     from ... argument (spill) at ./alg.go:72:13
+./alg.go:72:14:     from fmt.a := ... argument (assign-pair) at ./alg.go:72:13
+./alg.go:72:14:   flow: {heap} = *fmt.a:
+./alg.go:72:14:     from fmt.Fprintln(os.Stdout, fmt.a...) (call parameter) at ./alg.go:72:13
+./alg.go:70:98: ~R0 escapes to heap:
+./alg.go:70:98:   flow: {storage for ... argument} = &{storage for ~R0}:
+./alg.go:70:98:     from ~R0 (spill) at ./alg.go:70:98
+./alg.go:70:98:     from ... argument (slice-literal-element) at ./alg.go:70:12
+./alg.go:70:98:   flow: fmt.a = &{storage for ... argument}:
+./alg.go:70:98:     from ... argument (spill) at ./alg.go:70:12
+./alg.go:70:98:     from fmt.format, fmt.a := "Matched: %v\nInp: [%s]\nExp: [%s]\nGot: [%s]\n", ... argument (assign-pair) at ./alg.go:70:12
+./alg.go:70:98:   flow: {heap} = *fmt.a:
+./alg.go:70:98:     from fmt.Fprintf(os.Stdout, fmt.format, fmt.a...) (call parameter) at ./alg.go:70:12
+./alg.go:70:81: out escapes to heap:
+./alg.go:70:81:   flow: {storage for ... argument} = &{storage for out}:
+./alg.go:70:81:     from out (spill) at ./alg.go:70:81
+./alg.go:70:81:     from ... argument (slice-literal-element) at ./alg.go:70:12
+./alg.go:70:81:   flow: fmt.a = &{storage for ... argument}:
+./alg.go:70:81:     from ... argument (spill) at ./alg.go:70:12
+./alg.go:70:81:     from fmt.format, fmt.a := "Matched: %v\nInp: [%s]\nExp: [%s]\nGot: [%s]\n", ... argument (assign-pair) at ./alg.go:70:12
+./alg.go:70:81:   flow: {heap} = *fmt.a:
+./alg.go:70:81:     from fmt.Fprintf(os.Stdout, fmt.format, fmt.a...) (call parameter) at ./alg.go:70:12
+./alg.go:70:77: in escapes to heap:
+./alg.go:70:77:   flow: {storage for ... argument} = &{storage for in}:
+./alg.go:70:77:     from in (spill) at ./alg.go:70:77
+./alg.go:70:77:     from ... argument (slice-literal-element) at ./alg.go:70:12
+./alg.go:70:77:   flow: fmt.a = &{storage for ... argument}:
+./alg.go:70:77:     from ... argument (spill) at ./alg.go:70:12
+./alg.go:70:77:     from fmt.format, fmt.a := "Matched: %v\nInp: [%s]\nExp: [%s]\nGot: [%s]\n", ... argument (assign-pair) at ./alg.go:70:12
+./alg.go:70:77:   flow: {heap} = *fmt.a:
+./alg.go:70:77:     from fmt.Fprintf(os.Stdout, fmt.format, fmt.a...) (call parameter) at ./alg.go:70:12
+./alg.go:70:71: matched == 0 escapes to heap:
+./alg.go:70:71:   flow: {storage for ... argument} = &{storage for matched == 0}:
+./alg.go:70:71:     from matched == 0 (spill) at ./alg.go:70:71
+./alg.go:70:71:     from ... argument (slice-literal-element) at ./alg.go:70:12
+./alg.go:70:71:   flow: fmt.a = &{storage for ... argument}:
+./alg.go:70:71:     from ... argument (spill) at ./alg.go:70:12
+./alg.go:70:71:     from fmt.format, fmt.a := "Matched: %v\nInp: [%s]\nExp: [%s]\nGot: [%s]\n", ... argument (assign-pair) at ./alg.go:70:12
+./alg.go:70:71:   flow: {heap} = *fmt.a:
+./alg.go:70:71:     from fmt.Fprintf(os.Stdout, fmt.format, fmt.a...) (call parameter) at ./alg.go:70:12
+./alg.go:66:14: "=======================================\nRunning Algorithm One" escapes to heap:
+./alg.go:66:14:   flow: {storage for ... argument} = &{storage for "=======================================\nRunning Algorithm One"}:
+./alg.go:66:14:     from "=======================================\nRunning Algorithm One" (spill) at ./alg.go:66:14
+./alg.go:66:14:     from ... argument (slice-literal-element) at ./alg.go:66:13
+./alg.go:66:14:   flow: fmt.a = &{storage for ... argument}:
+./alg.go:66:14:     from ... argument (spill) at ./alg.go:66:13
+./alg.go:66:14:     from fmt.a := ... argument (assign-pair) at ./alg.go:66:13
+./alg.go:66:14:   flow: {heap} = *fmt.a:
+./alg.go:66:14:     from fmt.Fprintln(os.Stdout, fmt.a...) (call parameter) at ./alg.go:66:13
+./alg.go:63:17: ([]byte)("elvis") does not escape
+./alg.go:64:17: ([]byte)("Elvis") does not escape
+./alg.go:66:13: ... argument does not escape
+./alg.go:66:14: "=======================================\nRunning Algorithm One" escapes to heap
+./alg.go:70:12: ... argument does not escape
+./alg.go:70:71: matched == 0 escapes to heap
+./alg.go:70:77: in escapes to heap
+./alg.go:70:81: out escapes to heap
+./alg.go:70:98: ~R0 escapes to heap
+./alg.go:72:13: ... argument does not escape
+./alg.go:72:14: "=======================================\nRunning Algorithm Two" escapes to heap
+./alg.go:76:12: ... argument does not escape
+./alg.go:76:71: matched == 0 escapes to heap
+./alg.go:76:77: in escapes to heap
+./alg.go:76:81: out escapes to heap
+./alg.go:76:98: ~R0 escapes to heap
