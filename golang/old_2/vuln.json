@@ -1,0 +1,25 @@
+{
+  "AutocheckExploit": {
+    "Type": "HTTP",
+    "Text": "GET /vulnerabilities/view_source.php?cb7dbfa6791b48c5926104fb66f645f1=cb7dbfa6791b48c5926104fb66f645f1&security=1787853466&id=%22onmouseover=confirm(2438)%20 HTTP/1.1\\r\\nHost: vulner-dvwa.rd.ptsecurity.ru\\r\\nAccept: */*\\r\\nAccept-Encoding: deflate, gzip\\r\\nCookie: security=low; PHPSESSID=q8utehusuh5208qu6gaifuait2\\r\\nx-forwarded-for: 127.0.0.1\\r\\nuser-agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36\\r\\nreferer: http://127.0.0.1/\\r\\npragma: no-cache\\r\\ncache-control: no-cache\\r\\nx-real-ip: 127.0.0.1\\r\\n\\r\\n",
+    "Url": "http://vulner-dvwa.rd.ptsecurity.ru/vulnerabilities/view_source.php?cb7dbfa6791b48c5926104fb66f645f1=cb7dbfa6791b48c5926104fb66f645f1&security=1787853466&id=%22onmouseover=confirm(2438)%20",
+    "Parameters": null
+  },
+  "ApprovalState": 4
+}
+
+1. SAST -> issue -> ASOC VULN -> Save to DD
+1.1 (PTAI Server) Issue -> internal cache
+
+2. DAST ->
+2.1 Issue from cache
+2.2 Extend
+2.3 Issue -> ASOC -> Vuln -> (ADAPTER) -> Save TO DD (update)
+
+ASOC |  Adapter     | DD
+1. Read By UUID -> Insert/Update
+
+---
+
+1. PTAI Infra (run cores, autoCheck)
+2. PTAI Infra (run cores)
