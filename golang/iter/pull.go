@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"iter"
 	"log"
-	"math/rand"
 )
 
 func SimpleIter() iter.Seq[int] {
@@ -17,28 +16,6 @@ func SimpleIter() iter.Seq[int] {
 }
 
 func main() {
-	randIntGen := iter.Seq[int](func(yield func(int) bool) {
-		for {
-			if !yield(rand.Int()) {
-				break
-			}
-		}
-	})
-
-	nextRandInt, stop := iter.Pull(randIntGen)
-	defer stop()
-
-	for i := range 5 {
-		v, ok := nextRandInt()
-		if !ok {
-			fmt.Println("no more values in sequence")
-			break
-		}
-		fmt.Printf("[%d] %d\n", i, v)
-	}
-
-	fmt.Println("========================")
-
 	// push
 	fmt.Printf("Push")
 	for i := range SimpleIter() {
