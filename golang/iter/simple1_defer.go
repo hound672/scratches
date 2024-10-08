@@ -6,6 +6,7 @@ import (
 )
 
 func SimpleIter() iter.Seq[int] {
+	defer log.Println("Defer in constructor")
 	log.Println("Before")
 	return func(yield func(int) bool) {
 		defer func(){log.Println("Defer in yield func")}()
