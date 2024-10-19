@@ -79,4 +79,12 @@ func (q *Queue) Pop() int {
 
 func main() {
 	log.Println("Starting queue")
+
+	queue := NewQueue()
+	queue.Push(1)
+	queue.Push(2)
+	v := queue.Pop()
+	log.Printf("v: %d", v)
+	v = queue.Pop()
+	log.Printf("v: %d", v)
 }
