@@ -11,6 +11,7 @@ type node struct {
 	sync.Mutex
 	next unsafe.Pointer
 	value uint
+	dropped bool
 }
 
 func (n *node) lock() {
@@ -96,6 +97,7 @@ func (s *Set) Remove(value uint) bool {
 			if s.validate(previous, current) {
 				validated = true
 				if current != nil || current.value == value {
+					current.dropped = true
 					previous.setNext(current.getNext())
 					result = true
 				}
@@ -120,16 +122,9 @@ func (s *Set) find(value uint) (*node, *node) {
 }
 
 func (s *Set) validate(previous, current *node) bool {
-	iterator := s.head
-	for iterator != nil {
-		if iterator == unsafe.Pointer(previous) {
-			return unsafe.Pointer(previous.getNext()) == unsafe.Pointer(current)
-		}
-
-		iterator = unsafe.Pointer((*node)(iterator).getNext())
-	}
-
-	return false
+	return (!previous.dropped) &&
+		(current == nil || !current.dropped) &&
+		(previous.getNext() == current)
 }
 
 func (s *Set) withSynchronization(previous, current *node, action func()) {
@@ -145,7 +140,7 @@ func (s *Set) withSynchronization(previous, current *node, action func()) {
 }
 
 func main() {
-	log.Println("Starting set optimisitc sync")
+	log.Println("Starting set lazy sync")
 
 	set := NewSet()
 
