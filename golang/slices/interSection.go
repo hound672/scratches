@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 
 	"golang.org/x/exp/constraints"
@@ -48,9 +47,14 @@ func main() {
 
 	sl1 := []string{"123", "456", "789"}
 	sl2 := []string{"123", "456"}
+	log.Printf("Before: sl1: %v; sl2: %v", sl1, sl2)
 
 	res := interSection(sl1, sl2)
 	log.Println(res)
+
+	log.Printf("After: sl1: %v; sl2: %v", sl1, sl2)
+
+	log.Println("---------------------")
 
 	resultSlice := []string{}
 	checkMap := map[string]struct{}{}
@@ -64,8 +68,14 @@ func main() {
 		}
 	}
 
-	fmt.Println(resultSlice)
+	log.Println(resultSlice)
 
-	r := difference(sl2, sl1)
+	log.Println("---------------------")
+
+	log.Printf("Before: sl1: %v; sl2: %v", sl1, sl2)
+
+	r := difference(sl1, sl2)
 	log.Println(r)
+
+	log.Printf("After: sl1: %v; sl2: %v", sl1, sl2)
 }
