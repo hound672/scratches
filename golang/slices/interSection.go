@@ -3,10 +3,10 @@ package main
 import (
 	"log"
 
-	"golang.org/x/exp/constraints"
+	"github.com/google/uuid"
 )
 
-func interSection[T constraints.Ordered](pS ...[]T) []T {
+func interSection[T comparable](pS ...[]T) []T {
 	hash := make(map[T]*int) // value, counter
 	result := make([]T, 0)
 	for _, slice := range pS {
@@ -28,7 +28,7 @@ func interSection[T constraints.Ordered](pS ...[]T) []T {
 	return result
 }
 
-func difference[T constraints.Ordered](a, b []T) []T {
+func difference[T comparable](a, b []T) []T {
 	mb := make(map[T]struct{}, len(b))
 	for _, x := range b {
 		mb[x] = struct{}{}
@@ -50,7 +50,7 @@ func main() {
 	log.Printf("Before: sl1: %v; sl2: %v", sl1, sl2)
 
 	res := interSection(sl1, sl2)
-	log.Println(res)
+	log.Printf("Itersection: %v", res)
 
 	log.Printf("After: sl1: %v; sl2: %v", sl1, sl2)
 
@@ -78,4 +78,16 @@ func main() {
 	log.Println(r)
 
 	log.Printf("After: sl1: %v; sl2: %v", sl1, sl2)
+
+	log.Println("---------------------")
+	u1 := []uuid.UUID{uuid.New(), uuid.New(), uuid.New()}
+	u2 := []uuid.UUID{u1[0], u1[1], uuid.New()}
+	log.Printf("Before: u1: %v; u2: %v", u1, u2)
+	dif := difference(u1, u2)
+	log.Println(dif)
+	log.Printf("After: u1: %v; u2: %v", u1, u2)
+
+	log.Println("---------------------")
+	i := interSection(u1, u2)
+	log.Println(i)
 }
